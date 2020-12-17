@@ -1,32 +1,27 @@
+document.addEventListener('DOMContentLoaded', (e) => {
+    console.log(`Document is ready!`);
 
-    // Create Dino Constructor
+    (() => {
+        // TODO: Create Dino Constructor
 
+        // TODO: Create Dino Objects
 
-    // Create Dino Objects
+        // TODO: Create Human Object
 
+        // TODO: Use IIFE to get human data from form
 
-    // Create Human Object
+        // TODO: Create Dino Compare Method 1
 
-    // Use IIFE to get human data from form
+        // TODO: Create Dino Compare Method 2
 
+        // TODO: Create Dino Compare Method 3
 
-    // Create Dino Compare Method 1
-    // NOTE: Weight in JSON file is in lbs, height in inches. 
+        // TODO: Generate Tiles for each Dino in Array
 
-    
-    // Create Dino Compare Method 2
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+        // TODO: Add tiles to DOM
 
-    
-    // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+        // TODO: Remove form from screen
 
-
-    // Generate Tiles for each Dino in Array
-  
-        // Add tiles to DOM
-
-    // Remove form from screen
-
-
-// On button click, prepare and display infographic
+        // TODO: On button click, prepare and display infographic
+    })();
+});
