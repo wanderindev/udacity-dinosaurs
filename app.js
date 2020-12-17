@@ -3,8 +3,27 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     (() => {
         // TODO: Create Dino Constructor
+        function Dino(species, weight, height, diet, where, when, fact) {
+            this.species = species;
+            this.weight = weight;
+            this.height = height;
+            this.diet = diet;
+            this.where = where;
+            this.when = when;
+            this.facts = [fact];
+            this.image = './images/' + species.toLowerCase() + '.png';
+        }
 
         // TODO: Create Dino Objects
+        let triceratops = new Dino('Triceratops',
+            13000,
+            114,
+            'herbavor',
+            'North America',
+            'Late Cretaceous',
+            'First discovered in 1889 by Othniel Charles Marsh'
+        )
+        console.log(triceratops);
 
         // TODO: Create Human Object
 
