@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     console.log(`Document is ready!`);
 
     (() => {
+        const xmlhttp = new XMLHttpRequest();
+        const dinos = [];
+
         // TODO: Create Dino Constructor
         function Dino(species, weight, height, diet, where, when, fact) {
             this.species = species;
@@ -10,20 +13,28 @@ document.addEventListener('DOMContentLoaded', (e) => {
             this.diet = diet;
             this.where = where;
             this.when = when;
+            this.fact = fact;
             this.facts = [fact];
             this.image = './images/' + species.toLowerCase() + '.png';
         }
 
         // TODO: Create Dino Objects
-        let triceratops = new Dino('Triceratops',
-            13000,
-            114,
-            'herbavor',
-            'North America',
-            'Late Cretaceous',
-            'First discovered in 1889 by Othniel Charles Marsh'
-        )
-        console.log(triceratops);
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                const dinoData = JSON.parse(this.responseText).Dinos;
+                dinoData.forEach((dino) => {
+                    dinos.push(
+                        new Dino(dino.species, dino.weight, dino.height, dino.diet, dino.where, dino.when, dino.fact)
+                    );
+                });
+
+                console.log(dinos);
+
+            }
+        };
+        xmlhttp.open("GET", "./dino.json", true);
+        xmlhttp.send();
+
 
         // TODO: Create Human Object
 
