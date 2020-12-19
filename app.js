@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', (e) => {
-    console.log(`Document is ready!`);
-
     (() => {
         const xmlhttp = new XMLHttpRequest();
         const dinos = [];
+        const formName = document.getElementById('name');
+        const formFeet = document.getElementById('feet');
+        const formInches = document.getElementById('inches');
+        const formWeight = document.getElementById('weight');
+        const formDiet = document.getElementById('diet');
+        const formSubmit = document.getElementById('btn');
 
         // TODO: Create Dino Constructor
         function Dino(species, weight, height, diet, where, when, fact) {
@@ -36,7 +40,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
         xmlhttp.send();
 
 
-        // TODO: Create Human Object
+        // TODO: Create Human Constructor
+        function Human(name, weight, height, diet) {
+            this.name = name;
+            this.weight = weight;
+            this.height = height;
+            this.diet = diet;
+            this.image = './images/human.png';
+        }
 
         // TODO: Use IIFE to get human data from form
 
@@ -53,5 +64,20 @@ document.addEventListener('DOMContentLoaded', (e) => {
         // TODO: Remove form from screen
 
         // TODO: On button click, prepare and display infographic
+        formSubmit.addEventListener('click', () => {
+            // Get all values from the form
+            const name = formName.value;
+            const feet = parseFloat(formFeet.value);
+            const inches = parseFloat(formInches.value);
+            const height = feet * 12 + inches;
+            const weight = parseFloat(formWeight.value);
+            const diet = formDiet.value;
+
+            // TODO: Create a human object
+            const human = new Human(name, weight, height, diet);
+
+            console.log(human);
+
+        });
     })();
 });
