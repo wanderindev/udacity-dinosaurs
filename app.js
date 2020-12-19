@@ -20,6 +20,43 @@ document.addEventListener('DOMContentLoaded', (e) => {
             this.fact = fact;
             this.facts = [fact];
             this.image = './images/' + species.toLowerCase() + '.png';
+
+            // TODO: Create Dino Compare Method 1
+            this.compareHeight = (human) => {
+                const diff = this.height - human.height;
+
+                if (diff > 0) {
+                    return 'You are shorter than a ' + this.species;
+                } else if (diff < 0) {
+                    return 'You are taller than a ' + this.species;
+                } else {
+                    return 'You are the same height as a ' + this.species;
+                }
+            }
+
+            // TODO: Create Dino Compare Method 2
+            this.compareWeight = (human) =>  {
+                const diff = this.weight - human.weight;
+
+                if (diff > 0) {
+                    return 'You are lighter than a ' + this.species;
+                } else if (diff < 0) {
+                    return 'You are heavier than a ' + this.species;
+                } else {
+                    return 'You are the same weight as a ' + this.species;
+                }
+            }
+
+            // TODO: Create Dino Compare Method 3
+            this.compareDiet = (human) =>  {
+                const diff = this.weight - human.weight;
+
+                if (this.diet === human.diet) {
+                    return 'You and a ' + this.species + ' have the same diet';
+                } else {
+                    return 'You and a ' + this.species + ' have different diets';
+                }
+            }
         }
 
         // TODO: Create Dino Objects
@@ -51,12 +88,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         // TODO: Use IIFE to get human data from form
 
-        // TODO: Create Dino Compare Method 1
-
-        // TODO: Create Dino Compare Method 2
-
-        // TODO: Create Dino Compare Method 3
-
         // TODO: Generate Tiles for each Dino in Array
 
         // TODO: Add tiles to DOM
@@ -77,6 +108,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
             const human = new Human(name, weight, height, diet);
 
             console.log(human);
+
+            dinos.forEach((dino) => {
+                console.log(dino.compareHeight(human));
+                console.log(dino.compareWeight(human));
+                console.log(dino.compareDiet(human));
+            });
 
         });
     })();
