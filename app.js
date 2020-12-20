@@ -24,20 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.fact = fact;
             this.facts = [];
 
-            // Sets six facts about the animal
-            this.setFacts = (human) => {
-                this.facts.push(fact);
-
-                if (this.species !== 'Pigeon') {
-                    this.facts.push(`The ${this.species} lived in ${this.where}`);
-                    this.facts.push(`The ${this.species} lived in ${this.when} period`);
-                    this.facts.push(...this.compareToHuman(human));
-                }
-
-            };
-
             // Compares the height, weight, and diet of the animal with that of the human
-            this.compareToHuman = (human) => {
+            const compareToHuman = (human) => {
                 const heightDiff = this.height - human.height;
                 const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
                 const heightFact = `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
@@ -52,6 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 return [heightFact, weightFact, dietFact];
             };
 
+            // Returns a random fact
+            const getRandomFact = () => {
+                const factIndex = Math.floor(Math.random() * this.facts.length);
+
+                return this.facts[factIndex];
+            };
+
+            // Sets six facts about the animal
+            this.setFacts = (human) => {
+                this.facts.push(fact);
+
+                if (this.species !== 'Pigeon') {
+                    this.facts.push(`The ${this.species} lived in ${this.where}`);
+                    this.facts.push(`The ${this.species} lived in ${this.when} period`);
+                    this.facts.push(...compareToHuman(human));
+                }
+
+            };
+
             // Returns the image url
             this.getImageUrl = () => {
                 return './images/' + species.toLowerCase().split(' ').join('_') + '.png';
@@ -61,16 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
             this.getHtml = () => {
                 const tileTitle = this.species === 'human' ? `<h3>${this.name}</h3>` : `<h3>${this.species}</h3>`;
                 const tileImg = `<img src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
-                const tileFact = this.species === 'human' ? `` : `<p>${this.getRandomFact()}</p>`;
+                const tileFact = this.species === 'human' ? `` : `<p>${getRandomFact()}</p>`;
 
                 return `<div class="grid-item">${tileTitle}${tileImg}${tileFact}</div>`;
-            };
-
-            // Returns a random fact
-            this.getRandomFact = () => {
-                const factIndex = Math.floor(Math.random() * this.facts.length);
-
-                return this.facts[factIndex];
             };
         }
 
