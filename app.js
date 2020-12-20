@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Returns the html for the tile
             this.getHtml = () => {
-                const tileTitle = this.species === 'human' ? `<h4>${this.name}</h4>` : `<h4>${this.species}</h4>`;
-                const tileImg = `<img class="animal-img" src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
-                const tileFact = this.species === 'human' ? `` : `<p class="animal-fact">${this.getRandomFact()}</p>`;
+                const tileTitle = this.species === 'human' ? `<h3>${this.name}</h3>` : `<h3>${this.species}</h3>`;
+                const tileImg = `<img src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
+                const tileFact = this.species === 'human' ? `` : `<p>${this.getRandomFact()}</p>`;
 
-                return `<div class="tile-wrapper">${tileTitle}${tileImg}${tileFact}</div>`;
+                return `<div class="grid-item">${tileTitle}${tileImg}${tileFact}</div>`;
             };
 
             // Returns a random fact
