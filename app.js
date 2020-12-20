@@ -25,9 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Sets six facts about the animal
             this.setFacts = (human) => {
                 this.facts.push(fact);
-                this.facts.push(`The ${this.species} lived in ${this.where}`);
-                this.facts.push(`The ${this.species} lived in ${this.when} period`);
-                this.facts.push(...this.compareToHuman(human));
+
+                if (this.species !== 'Pigeon') {
+                    this.facts.push(`The ${this.species} lived in ${this.where}`);
+                    this.facts.push(`The ${this.species} lived in ${this.when} period`);
+                    this.facts.push(...this.compareToHuman(human));
+                }
+
             };
 
             // Compares the height, weight, and diet of the animal with that of the human
