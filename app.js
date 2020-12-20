@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', (e) => {
+/* eslint-env browser */
+document.addEventListener('DOMContentLoaded', () => {
+    "use strict";
     (() => {
         const xmlhttp = new XMLHttpRequest();
         const dinos = [];
@@ -21,47 +23,28 @@ document.addEventListener('DOMContentLoaded', (e) => {
             this.facts = [fact];
             this.image = './images/' + species.toLowerCase() + '.png';
 
-            // TODO: Create Dino Compare Method 1
-            this.compareHeight = (human) => {
-                const diff = this.height - human.height;
+            // TODO: Create Dino Compare Method
+            this.compareToHuman = (human) => {
+                const heightDiff = this.height - human.height;
+                const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
+                const heightFact = `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
+                this.facts.push(heightFact);
 
-                if (diff > 0) {
-                    return 'You are shorter than a ' + this.species;
-                } else if (diff < 0) {
-                    return 'You are taller than a ' + this.species;
-                } else {
-                    return 'You are the same height as a ' + this.species;
-                }
-            }
+                const weightDiff = this.weight - human.weight;
+                const weightComp = weightDiff >= 0 ? 'heavier' : 'lighter';
+                const weightFact = `A ${this.species} is ${Math.abs(weightDiff)} pounds ${weightComp} than ${human.name}`;
+                this.facts.push(weightFact);
 
-            // TODO: Create Dino Compare Method 2
-            this.compareWeight = (human) =>  {
-                const diff = this.weight - human.weight;
-
-                if (diff > 0) {
-                    return 'You are lighter than a ' + this.species;
-                } else if (diff < 0) {
-                    return 'You are heavier than a ' + this.species;
-                } else {
-                    return 'You are the same weight as a ' + this.species;
-                }
-            }
-
-            // TODO: Create Dino Compare Method 3
-            this.compareDiet = (human) =>  {
-                const diff = this.weight - human.weight;
-
-                if (this.diet === human.diet) {
-                    return 'You and a ' + this.species + ' have the same diet';
-                } else {
-                    return 'You and a ' + this.species + ' have different diets';
-                }
-            }
+                const dietComp = this.diet === human.diet ? `just like ${human.name}` : `while ${human.name} is a ${human.diet}`;
+                const dietFact = `A ${this.species} is a ${this.diet} ${dietComp}`;
+                this.facts.push(dietFact);
+            };
         }
 
         // TODO: Create Dino Objects
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
+                // noinspection JSUnresolvedVariable
                 const dinoData = JSON.parse(this.responseText).Dinos;
                 dinoData.forEach((dino) => {
                     dinos.push(
@@ -102,7 +85,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             const inches = parseFloat(formInches.value);
             const height = feet * 12 + inches;
             const weight = parseFloat(formWeight.value);
-            const diet = formDiet.value;
+            const diet = formDiet.value.toLowerCase();
 
             // TODO: Create a human object
             const human = new Human(name, weight, height, diet);
@@ -110,9 +93,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
             console.log(human);
 
             dinos.forEach((dino) => {
-                console.log(dino.compareHeight(human));
-                console.log(dino.compareWeight(human));
-                console.log(dino.compareDiet(human));
+                dino.compareToHuman(human);
+                console.log(dino.facts);
             });
 
         });
