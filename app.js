@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.where = where ? where.toLowerCase() : '';
             this.when = when ? when.toLowerCase() : '';
             this.fact = fact;
-            this.facts = [];
+
+            const facts = [this.fact];
 
             // Compares the height, weight, and diet of the animal with that of the human
             const compareToHuman = (human) => {
@@ -42,21 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Returns a random fact
             const getRandomFact = () => {
-                const factIndex = Math.floor(Math.random() * this.facts.length);
-
-                return this.facts[factIndex];
+                return facts[Math.floor(Math.random() * facts.length)];
             };
 
             // Sets six facts about the animal
             this.setFacts = (human) => {
-                this.facts.push(fact);
-
                 if (this.species !== 'Pigeon') {
-                    this.facts.push(`The ${this.species} lived in ${this.where}`);
-                    this.facts.push(`The ${this.species} lived in ${this.when} period`);
-                    this.facts.push(...compareToHuman(human));
+                    facts.push(`The ${this.species} lived in ${this.where}`);
+                    facts.push(`The ${this.species} lived in ${this.when} period`);
+                    facts.push(...compareToHuman(human));
                 }
-
             };
 
             // Returns the image url
