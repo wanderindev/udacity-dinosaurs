@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const formDiet = document.getElementById('diet');
         const formSubmit = document.getElementById('btn');
 
-        // Creates the Dino constructor
-        function Dino(species, weight, height, diet, where, when, fact) {
+        // Creates the Animal constructor
+        function Animal(species, weight, height, diet, where, when, fact) {
             this.species = species;
             this.weight = weight;
             this.height = height;
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.fact = fact;
             this.facts = [];
 
-            // Sets six facts about the dinosaur
+            // Sets six facts about the animal
             this.setFacts = (human) => {
                 this.facts.push(fact);
                 this.facts.push(`The ${this.species} lived in ${this.where}`);
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.facts.push(...this.compareToHuman(human));
             };
 
-            // Compares the height, weight, and diet of the dinosaur with that of the human
+            // Compares the height, weight, and diet of the animal with that of the human
             this.compareToHuman = (human) => {
                 const heightDiff = this.height - human.height;
                 const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        // Parses the JSON file and creates Dino objects
+        // Parses the JSON file and creates dinosaur objects
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 // noinspection JSUnresolvedVariable
                 const dinoData = JSON.parse(this.responseText).Dinos;
                 dinoData.forEach((dino) => {
                     dinos.push(
-                        new Dino(dino.species, dino.weight, dino.height, dino.diet, dino.where, dino.when, dino.fact)
+                        new Animal(dino.species, dino.weight, dino.height, dino.diet, dino.where, dino.when, dino.fact)
                     );
                 });
             }
@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // Creates the human object
-        const human = new Dino('human');
+        const human = new Animal('human');
 
         // TODO: Use IIFE to get human data from form
 
-        // TODO: Generate Tiles for each Dino in Array
+        // TODO: Generate Tiles for each Animal in Array
 
         // TODO: Add tiles to DOM
 
