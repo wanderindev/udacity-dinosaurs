@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.when = when.toLowerCase();
             this.fact = fact;
             this.facts = [];
-            this.image = './images/' + species.toLowerCase() + '.png';
 
             // Sets six facts about the dinosaur
             this.setFacts = (human) => {
@@ -45,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dietFact = `A ${this.species} is a ${this.diet} ${dietComp}`;
 
                 return [heightFact, weightFact, dietFact];
+            };
+
+            // Returns the image url
+            this.getImageUrl = () => {
+                return './images/' + species.toLowerCase().split(' ').join('_') + '.png';
             };
         }
 
@@ -96,9 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             dinos.forEach((dino) => {
                 dino.setFacts(human);
-                console.log(dino.facts);
+                console.log(dino.getImageUrl());
             });
-
         });
     })();
 });
