@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             this.weight = weight;
             this.height = height;
             this.diet = diet;
-            this.where = where.toLowerCase();
-            this.when = when.toLowerCase();
+            this.where = where ? where.toLowerCase() : '';
+            this.when = when ? when.toLowerCase() : '';
             this.fact = fact;
             this.facts = [];
 
@@ -68,14 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         xmlhttp.send();
 
 
-        // Creates the Human constructor
-        function Human(name, weight, height, diet) {
-            this.name = name;
-            this.weight = weight;
-            this.height = height;
-            this.diet = diet;
-            this.image = './images/human.png';
-        }
+        // Creates the human object
+        const human = new Dino('human');
 
         // TODO: Use IIFE to get human data from form
 
@@ -95,8 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const weight = parseFloat(formWeight.value);
             const diet = formDiet.value.toLowerCase();
 
-            // Creates a human object
-            const human = new Human(name, weight, height, diet);
+            // Adds property values to human
+            human.name = name;
+            human.height = height;
+            human.weight = weight;
+            human.diet = diet;
 
             dinos.forEach((dino) => {
                 dino.setFacts(human);
