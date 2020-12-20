@@ -50,6 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
             this.getImageUrl = () => {
                 return './images/' + species.toLowerCase().split(' ').join('_') + '.png';
             };
+
+            // Returns the html for the tile
+            this.getHtml = () => {
+                const tileTitle = this.species === 'human' ? `<h4>${this.name}</h4>` : `<h4>${this.species}</h4>`;
+                const tileImg = `<img class="animal-img" src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
+                const tileFact = this.species === 'human' ? `` : `<p class="animal-fact">${this.facts[0]}</p>`;
+
+                return `<div class="tile-wrapper">${tileTitle}${tileImg}${tileFact}</div>`;
+            };
         }
 
         // Parses the JSON file and creates dinosaur objects
@@ -95,9 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
             human.weight = weight;
             human.diet = diet;
 
+            console.log(human.getHtml());
+
             dinos.forEach((dino) => {
                 dino.setFacts(human);
-                console.log(dino.getImageUrl());
+                console.log(dino.getHtml());
             });
         });
     })();
