@@ -11,37 +11,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const formDiet = document.getElementById('diet');
         const formSubmit = document.getElementById('btn');
 
-        // TODO: Create Dino Constructor
+        // Creates the Dino constructor
         function Dino(species, weight, height, diet, where, when, fact) {
             this.species = species;
             this.weight = weight;
             this.height = height;
             this.diet = diet;
-            this.where = where;
-            this.when = when;
+            this.where = where.toLowerCase();
+            this.when = when.toLowerCase();
             this.fact = fact;
-            this.facts = [fact];
+            this.facts = [];
             this.image = './images/' + species.toLowerCase() + '.png';
 
-            // TODO: Create Dino Compare Method
+            // Sets six facts about the dinosaur
+            this.setFacts = (human) => {
+                this.facts.push(fact);
+                this.facts.push(`The ${this.species} lived in ${this.where}`);
+                this.facts.push(`The ${this.species} lived in ${this.when} period`);
+                this.facts.push(...this.compareToHuman(human));
+            };
+
+            // Compares the height, weight, and diet of the dinosaur with that of the human
             this.compareToHuman = (human) => {
                 const heightDiff = this.height - human.height;
                 const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
                 const heightFact = `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
-                this.facts.push(heightFact);
 
                 const weightDiff = this.weight - human.weight;
                 const weightComp = weightDiff >= 0 ? 'heavier' : 'lighter';
                 const weightFact = `A ${this.species} is ${Math.abs(weightDiff)} pounds ${weightComp} than ${human.name}`;
-                this.facts.push(weightFact);
 
                 const dietComp = this.diet === human.diet ? `just like ${human.name}` : `while ${human.name} is a ${human.diet}`;
                 const dietFact = `A ${this.species} is a ${this.diet} ${dietComp}`;
-                this.facts.push(dietFact);
+
+                return [heightFact, weightFact, dietFact];
             };
         }
 
-        // TODO: Create Dino Objects
+        // Parses the JSON file and creates Dino objects
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 // noinspection JSUnresolvedVariable
@@ -51,16 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         new Dino(dino.species, dino.weight, dino.height, dino.diet, dino.where, dino.when, dino.fact)
                     );
                 });
-
-                console.log(dinos);
-
             }
         };
         xmlhttp.open("GET", "./dino.json", true);
         xmlhttp.send();
 
 
-        // TODO: Create Human Constructor
+        // Creates the Human constructor
         function Human(name, weight, height, diet) {
             this.name = name;
             this.weight = weight;
@@ -77,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // TODO: Remove form from screen
 
-        // TODO: On button click, prepare and display infographic
+        // Listens to clicks in the form button
         formSubmit.addEventListener('click', () => {
-            // Get all values from the form
+            // Gets all the values from the form inputs
             const name = formName.value;
             const feet = parseFloat(formFeet.value);
             const inches = parseFloat(formInches.value);
@@ -87,13 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const weight = parseFloat(formWeight.value);
             const diet = formDiet.value.toLowerCase();
 
-            // TODO: Create a human object
+            // Creates a human object
             const human = new Human(name, weight, height, diet);
 
-            console.log(human);
-
             dinos.forEach((dino) => {
-                dino.compareToHuman(human);
+                dino.setFacts(human);
                 console.log(dino.facts);
             });
 
