@@ -167,6 +167,10 @@ select {
     cursor: pointer;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Footer */
 .fine-print {
     display: block;
