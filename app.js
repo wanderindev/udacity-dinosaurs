@@ -4,14 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     (() => {
         const xmlhttp = new XMLHttpRequest();
         const dinos = [];
-        const form = document.getElementById('dino-compare');
-        const formName = document.getElementById('name');
-        const formFeet = document.getElementById('feet');
-        const formInches = document.getElementById('inches');
-        const formWeight = document.getElementById('weight');
-        const formDiet = document.getElementById('diet');
         const formSubmit = document.getElementById('btn');
-        const grid = document.getElementById('grid');
 
         // Creates the Animal constructor
         function Animal(species, weight, height, diet, where, when, fact) {
@@ -105,18 +98,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Listens to clicks in the form button
         formSubmit.addEventListener('click', () => {
+            // Gets handle to form and grid
+            const form = document.getElementById('dino-compare');
+            const grid = document.getElementById('grid');
+
             // Gets all the values from the form inputs
-            const name = formName.value.charAt(0).toUpperCase() + formName.value.slice(1);
-            const feet = parseFloat(formFeet.value);
-            const inches = parseFloat(formInches.value);
-            const height = feet * 12 + inches;
-            const weight = parseFloat(formWeight.value);
-            const diet = formDiet.value.toLowerCase();
+            const name = document.getElementById('name').value;
+            const feet = parseFloat(document.getElementById('feet').value);
+            const inches = parseFloat(document.getElementById('inches').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const diet = document.getElementById('diet').value.toLowerCase();
+
             let html = '';
 
             // Adds property values to human
-            human.name = name;
-            human.height = height;
+            human.name = name.charAt(0).toUpperCase() + name.slice(1);
+            human.height = feet * 12 + inches;
             human.weight = weight;
             human.diet = diet;
 
@@ -129,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Adds the human to the middle index of the array
             dinos.splice(4, 0, human);
 
-            // Add tiles to grid
+            // Creates tiles and adds them to the grid
             dinos.forEach((dino) => {
                 dino.setFacts(human);
                 html += dino.getHtml();
