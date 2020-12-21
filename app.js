@@ -15,53 +15,53 @@ document.addEventListener('DOMContentLoaded', () => {
             this.where = where ? where.toLowerCase() : '';
             this.when = when ? when.toLowerCase() : '';
             this.fact = fact;
-
-            const facts = [this.fact];
-
-            // Compares the height, weight, and diet of the animal with that of the human
-            const compareToHuman = (human) => {
-                const heightDiff = this.height - human.height;
-                const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
-                const heightFact = `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
-
-                const weightDiff = this.weight - human.weight;
-                const weightComp = weightDiff >= 0 ? 'heavier' : 'lighter';
-                const weightFact = `A ${this.species} is ${Math.abs(weightDiff)} pounds ${weightComp} than ${human.name}`;
-
-                const dietComp = this.diet === human.diet ? `just like ${human.name}` : `while ${human.name} is a ${human.diet}`;
-                const dietFact = `A ${this.species} is a ${this.diet} ${dietComp}`;
-
-                return [heightFact, weightFact, dietFact];
-            };
-
-            // Returns a random fact
-            const getRandomFact = () => {
-                return facts[Math.floor(Math.random() * facts.length)];
-            };
-
-            // Sets six facts about the animal
-            this.setFacts = (human) => {
-                if (this.species !== 'Pigeon') {
-                    facts.push(`The ${this.species} lived in ${this.where}`);
-                    facts.push(`The ${this.species} lived in ${this.when} period`);
-                    facts.push(...compareToHuman(human));
-                }
-            };
-
-            // Returns the image url
-            this.getImageUrl = () => {
-                return './images/' + species.toLowerCase().split(' ').join('_') + '.png';
-            };
-
-            // Returns the html for the tile
-            this.getHtml = () => {
-                const tileTitle = this.species === 'human' ? `<h3>${this.name}</h3>` : `<h3>${this.species}</h3>`;
-                const tileImg = `<img src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
-                const tileFact = this.species === 'human' ? `` : `<p>${getRandomFact()}</p>`;
-
-                return `<div class="grid-item">${tileTitle}${tileImg}${tileFact}</div>`;
-            };
+            this.facts = [this.fact];
         }
+
+        Animal.prototype.compareToHuman = function(human) {
+            return [this.compareHeight(human), this.compareWeight(human), this.compareDiet(human)];
+        };
+
+        Animal.prototype.compareHeight = function(human) {
+            const heightDiff = this.height - human.height;
+            const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
+            return `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
+        };
+
+        Animal.prototype.compareWeight = function(human) {
+            const weightDiff = this.weight - human.weight;
+            const weightComp = weightDiff >= 0 ? 'heavier' : 'lighter';
+            return `A ${this.species} is ${Math.abs(weightDiff)} pounds ${weightComp} than ${human.name}`;
+        };
+
+        Animal.prototype.compareDiet = function(human) {
+            const dietComp = this.diet === human.diet ? `just like ${human.name}` : `while ${human.name} is a ${human.diet}`;
+            return `A ${this.species} is a ${this.diet} ${dietComp}`;
+        };
+
+        Animal.prototype.getRandomFact = function() {
+            return this.facts[Math.floor(Math.random() * this.facts.length)];
+        };
+
+        Animal.prototype.setFacts = function(human) {
+            if (this.species !== 'Pigeon') {
+                this.facts.push(`The ${this.species} lived in ${this.where}`);
+                this.facts.push(`The ${this.species} lived in ${this.when} period`);
+                this.facts.push(...this.compareToHuman(human));
+            }
+        };
+
+        Animal.prototype.getImageUrl = function() {
+            return './images/' + this.species.toLowerCase().split(' ').join('_') + '.png';
+        };
+
+        Animal.prototype.getHtml = function() {
+            const tileTitle = this.species === 'human' ? `<h3>${this.name}</h3>` : `<h3>${this.species}</h3>`;
+            const tileImg = `<img src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
+            const tileFact = this.species === 'human' ? `` : `<p>${this.getRandomFact()}</p>`;
+
+            return `<div class="grid-item">${tileTitle}${tileImg}${tileFact}</div>`;
+        };
 
         // Parses the JSON file and creates dinosaur objects
         xmlhttp.onreadystatechange = function() {
