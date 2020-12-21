@@ -6,7 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const dinos = [];
         const formSubmit = document.getElementById('btn');
 
-        // Creates the Animal constructor
+        /**
+         * @description Represents an animal
+         * @constructor
+         * @param {string} species - The species of the animal
+         * @param {float} weight - The weight of the animal
+         * @param {float} height - The height of the animal
+         * @param {string} diet - The diet of the animal
+         * @param {string} where - The geographical area where the animal lived
+         * @param {string} when - The ecological period when the animal lived
+         * @param {string} fact - An interesting fact about the animal
+         */
         function Animal(species, weight, height, diet, where, when, fact) {
             this.species = species;
             this.weight = weight;
@@ -18,31 +28,59 @@ document.addEventListener('DOMContentLoaded', () => {
             this.facts = [this.fact];
         }
 
+        /**
+         * @description Compares the animal to a human
+         * @param {object} human - An animal object
+         * @returns {array} Three facts resulting from the comparison
+         */
         Animal.prototype.compareToHuman = function(human) {
             return [this.compareHeight(human), this.compareWeight(human), this.compareDiet(human)];
         };
 
+        /**
+         * @description Compares the animal's height to a human's height
+         * @param {object} human - An animal object
+         * @returns {string} A fact resulting from the height comparison
+         */
         Animal.prototype.compareHeight = function(human) {
             const heightDiff = this.height - human.height;
             const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
             return `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
         };
 
+        /**
+         * @description Compares the animal's weight to a human's weight
+         * @param {object} human - An animal object
+         * @returns {string} A fact resulting from the weight comparison
+         */
         Animal.prototype.compareWeight = function(human) {
             const weightDiff = this.weight - human.weight;
             const weightComp = weightDiff >= 0 ? 'heavier' : 'lighter';
             return `A ${this.species} is ${Math.abs(weightDiff)} pounds ${weightComp} than ${human.name}`;
         };
 
+        /**
+         * @description Compares the animal's diet to a human's diet
+         * @param {object} human - An animal object
+         * @returns {string} A fact resulting from the diet comparison
+         */
         Animal.prototype.compareDiet = function(human) {
             const dietComp = this.diet === human.diet ? `just like ${human.name}` : `while ${human.name} is a ${human.diet}`;
             return `A ${this.species} is a ${this.diet} ${dietComp}`;
         };
 
+        /**
+         * @description Selects a random fact from an array of facts
+         * @returns {string} A fact from the facts array
+         */
         Animal.prototype.getRandomFact = function() {
             return this.facts[Math.floor(Math.random() * this.facts.length)];
         };
 
+        /**
+         * @description Adds five facts to the facts array
+         * @param {object} human - An animal object
+         */
         Animal.prototype.setFacts = function(human) {
             if (this.species !== 'Pigeon') {
                 this.facts.push(`The ${this.species} lived in ${this.where}`);
@@ -51,10 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        /**
+         * @description Gets the url for the animal's image
+         * @returns {string} The url for the animal's image
+         */
         Animal.prototype.getImageUrl = function() {
             return './images/' + this.species.toLowerCase().split(' ').join('_') + '.png';
         };
 
+        /**
+         * @description Gets the html for the animal's tile
+         * @returns {string} The html for the animal's tile
+         */
         Animal.prototype.getHtml = function() {
             const tileTitle = this.species === 'human' ? `<h3>${this.name}</h3>` : `<h3>${this.species}</h3>`;
             const tileImg = `<img src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
@@ -78,13 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
         xmlhttp.open("GET", "./dino.json", true);
         xmlhttp.send();
 
-
         // Creates the human object
         const human = new Animal('human');
 
         // TODO: Use IIFE to get human data from form
 
-        // Rearranges the dinos array randomly by leaves the Pigeon element at the end
+        /**
+         * @description Randomly orders an array, but makes sure that the last element in the original array
+         *              remains last after the reordering.
+         * @param {array} array - An array of animal objects
+         */
         const shuffleArrayElements = (array) => {
             const pigeon = array.pop();
 
