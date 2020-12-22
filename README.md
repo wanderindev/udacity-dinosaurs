@@ -7,7 +7,7 @@
   <a href="https://github.com/wanderindev/udacity-dinosaurs/graphs/commit-activity">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg" target="_blank" />
   </a>
-  <a href="https://github.com/wanderindev/udacity-casting-agency/blob/master/LICENSE.md">
+  <a href="https://github.com/wanderindev/udacity-dinosaurs/blob/master/LICENSE.md">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
   <a href="https://twitter.com/JavierFeliuA">
@@ -38,7 +38,7 @@ Once the objects are created, an infographic consisting of 9 tiles should be gen
 
 ### Preview directly on GitHub
 If you just want to preview the finish project and don't plan to edit the code you can do so
-[here](https://htmlpreview.github.io/?https://github.com/wanderindev/udacity-dinosaurs/blob/master/index.html)
+[here](https://htmlpreview.github.io/?https://github.com/wanderindev/udacity-dinosaurs/blob/master/index.html).
 
 ### Clone the repository
 If you want to use the code, you can clone the repository:
