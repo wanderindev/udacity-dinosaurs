@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
          * @description Represents an animal.  This conscturctor is used for dinos and humans since both are animals
          * @constructor
          * @param {string} species - The species of the animal
-         * @param {float} weight - The weight of the animal
-         * @param {float} height - The height of the animal
+         * @param {number} weight - The weight of the animal
+         * @param {number} height - The height of the animal
          * @param {string} diet - The diet of the animal
          * @param {string} where - The geographical area where the animal lived
          * @param {string} when - The ecological period when the animal lived
@@ -109,7 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return `<div class="grid-item">${tileTitle}${tileImg}${tileFact}</div>`;
         };
 
-        // Parses the JSON file and creates dinosaur objects
+        /**
+         * @description Parses the JSON file and creates dinosaur objects
+         */
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 // noinspection JSUnresolvedVariable
@@ -123,9 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         xmlhttp.open("GET", "./dino.json", true);
         xmlhttp.send();
-
-        // Creates the human object
-        const human = new Animal('human');
 
         /**
          * @description Randomly orders the dinos array, but makes sure that the pigon object
@@ -151,12 +150,29 @@ document.addEventListener('DOMContentLoaded', () => {
          * @param {object} form - Handle to the form element
          * @param {object} grid - Handle to the grid element
          */
-        // Hides the form and displays the tiles
         const hideForm = (form, grid) => {
             console.log(form, typeof form);
             form.classList.add = 'hidden';
             grid.classList.add = 'flex';
         };
+
+        /**
+         * @description Adds the property values from the form to the human object
+         * @param {string} name - The human's name
+         * @param {number} feet - The feet part for the human height
+         * @param {number} inches - The inches part for the human height
+         * @param {number} weight - The human's weight
+         * @param {string} diet - The human's diet
+         */
+        const addPropsToHuman = (name, feet, inches, weight, diet) => {
+            human.name = name.charAt(0).toUpperCase() + name.slice(1);
+            human.height = feet * 12 + inches;
+            human.weight = weight;
+            human.diet = diet;
+        };
+
+        // Creates the human object
+        const human = new Animal('human');
 
         // Listens to clicks in the form button
         formSubmit.addEventListener('click', (() => {
@@ -174,10 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let html = '';
 
             // Adds property values to human
-            human.name = name.charAt(0).toUpperCase() + name.slice(1);
-            human.height = feet * 12 + inches;
-            human.weight = weight;
-            human.diet = diet;
+            addPropsToHuman(name, feet, inches, weight, diet);
 
             // Randomizes the order of the dinos array
             randomlyOrderDinos(dinos);
@@ -191,5 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             hideForm(form, grid);
         })());
+
+
+
     })();
 });
