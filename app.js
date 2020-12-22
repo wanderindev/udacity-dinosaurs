@@ -30,19 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * @description Compares the animal to a human
-         * @param {object} human - An animal object
          * @returns {array} Three facts resulting from the comparison
          */
-        Animal.prototype.compareToHuman = function(human) {
-            return [this.compareHeight(human), this.compareWeight(human), this.compareDiet(human)];
+        Animal.prototype.compareToHuman = function() {
+            return [this.compareHeight(), this.compareWeight(), this.compareDiet()];
         };
 
         /**
          * @description Compares the animal's height to a human's height
-         * @param {object} human - An animal object
          * @returns {string} A fact resulting from the height comparison
          */
-        Animal.prototype.compareHeight = function(human) {
+        Animal.prototype.compareHeight = function() {
             const heightDiff = this.height - human.height;
             const heightComp = heightDiff >= 0 ? 'taller' : 'shorter';
             return `A ${this.species} is ${Math.abs(heightDiff)} inches ${heightComp} than ${human.name}`;
@@ -50,10 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * @description Compares the animal's weight to a human's weight
-         * @param {object} human - An animal object
          * @returns {string} A fact resulting from the weight comparison
          */
-        Animal.prototype.compareWeight = function(human) {
+        Animal.prototype.compareWeight = function() {
             const weightDiff = this.weight - human.weight;
             const weightComp = weightDiff >= 0 ? 'heavier' : 'lighter';
             return `A ${this.species} is ${Math.abs(weightDiff)} pounds ${weightComp} than ${human.name}`;
@@ -61,10 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * @description Compares the animal's diet to a human's diet
-         * @param {object} human - An animal object
          * @returns {string} A fact resulting from the diet comparison
          */
-        Animal.prototype.compareDiet = function(human) {
+        Animal.prototype.compareDiet = function() {
             const dietComp = this.diet === human.diet ? `just like ${human.name}` : `while ${human.name} is a ${human.diet}`;
             return `A ${this.species} is a ${this.diet} ${dietComp}`;
         };
@@ -79,13 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * @description Adds five facts to the facts array
-         * @param {object} human - An animal object
          */
-        Animal.prototype.setFacts = function(human) {
+        Animal.prototype.setFacts = function() {
             if (this.species !== 'Pigeon') {
                 this.facts.push(`The ${this.species} lived in ${this.where}`);
                 this.facts.push(`The ${this.species} lived in ${this.when} period`);
-                this.facts.push(...this.compareToHuman(human));
+                this.facts.push(...this.compareToHuman());
             }
         };
 
@@ -98,10 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         /**
-         * @description Gets the html for the animal's tile
-         * @returns {string} The html for the animal's tile
+         * @description Gets the HTML for the animal's tile
+         * @returns {string} The HTML for the animal's tile
          */
-        Animal.prototype.getHtml = function() {
+        Animal.prototype.getTileHTML = function() {
             const tileTitle = this.species === 'human' ? `<h3>${this.name}</h3>` : `<h3>${this.species}</h3>`;
             const tileImg = `<img src="${this.getImageUrl()}" alt="Image rendering of a ${this.species}">`;
             const tileFact = this.species === 'human' ? `` : `<p>${this.getRandomFact()}</p>`;
@@ -114,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
          */
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
-                // noinspection JSUnresolvedVariable
                 const dinoData = JSON.parse(this.responseText).Dinos;
                 dinoData.forEach((dino) => {
                     dinos.push(
@@ -130,10 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
          * @description Randomly orders the dinos array, but makes sure that the pigon object
          *              remains last after the reordering and adds the human object to the
          *              middle position
-         * @param {array} dinos - An array of animal objects
-         * @param {object} human - An animal object
          */
-        const randomlyOrderDinos = (dinos, human) => {
+        const randomlyOrderDinos = () => {
             const pigeon = dinos.pop();
 
             for (let i = dinos.length - 1; i > 0; i--) {
@@ -143,17 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             dinos.push(pigeon);
             dinos.splice(4, 0, human);
-        };
-
-        /**
-         * @description Hides the form and displays the tiles
-         * @param {object} form - Handle to the form element
-         * @param {object} grid - Handle to the grid element
-         */
-        const hideForm = (form, grid) => {
-            console.log(form, typeof form);
-            form.classList.add = 'hidden';
-            grid.classList.add = 'flex';
         };
 
         /**
@@ -171,41 +152,40 @@ document.addEventListener('DOMContentLoaded', () => {
             human.diet = diet;
         };
 
+        /**
+         * @description Returns the grid's HTML
+         * @return {string} html - The HTML for the grid
+         */
+        const getGridHTML = () => {
+            let html = '';
+
+            randomlyOrderDinos();
+
+            dinos.forEach((dino) => {
+                dino.setFacts();
+                html += dino.getTileHTML();
+            });
+
+            return html;
+        };
+
         // Creates the human object
         const human = new Animal('human');
 
         // Listens to clicks in the form button
-        formSubmit.addEventListener('click', (() => {
-            // Gets handles to form and grid
+        formSubmit.addEventListener('click', () => {
             const form = document.getElementById('dino-compare');
             const grid = document.getElementById('grid');
-
-            // Gets all the values from the form inputs
             const name = document.getElementById('name').value;
             const feet = parseFloat(document.getElementById('feet').value);
             const inches = parseFloat(document.getElementById('inches').value);
             const weight = parseFloat(document.getElementById('weight').value);
             const diet = document.getElementById('diet').value.toLowerCase();
 
-            let html = '';
-
-            // Adds property values to human
             addPropsToHuman(name, feet, inches, weight, diet);
 
-            // Randomizes the order of the dinos array
-            randomlyOrderDinos(dinos);
-
-            // Creates tiles and adds them to the grid
-            dinos.forEach((dino) => {
-                dino.setFacts(human);
-                html += dino.getHtml();
-            });
-            grid.innerHTML = html;
-
-            hideForm(form, grid);
-        })());
-
-
-
+            form.className = 'hidden';
+            grid.innerHTML = getGridHTML();
+        });
     })();
 });
