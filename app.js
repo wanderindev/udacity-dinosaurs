@@ -127,27 +127,40 @@ document.addEventListener('DOMContentLoaded', () => {
         // Creates the human object
         const human = new Animal('human');
 
-        // TODO: Use IIFE to get human data from form
-
         /**
-         * @description Randomly orders an array, but makes sure that the last element in the original array
-         *              remains last after the reordering.
-         * @param {array} array - An array of animal objects
+         * @description Randomly orders the dinos array, but makes sure that the pigon object
+         *              remains last after the reordering and adds the human object to the
+         *              middle position
+         * @param {array} dinos - An array of animal objects
+         * @param {object} human - An animal object
          */
-        const shuffleArrayElements = (array) => {
-            const pigeon = array.pop();
+        const randomlyOrderDinos = (dinos, human) => {
+            const pigeon = dinos.pop();
 
-            for (let i = array.length - 1; i > 0; i--) {
+            for (let i = dinos.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                [dinos[i], dinos[j]] = [dinos[j], dinos[i]];
             }
 
-            array.push(pigeon);
+            dinos.push(pigeon);
+            dinos.splice(4, 0, human);
+        };
+
+        /**
+         * @description Hides the form and displays the tiles
+         * @param {object} form - Handle to the form element
+         * @param {object} grid - Handle to the grid element
+         */
+        // Hides the form and displays the tiles
+        const hideForm = (form, grid) => {
+            console.log(form, typeof form);
+            form.classList.add = 'hidden';
+            grid.classList.add = 'flex';
         };
 
         // Listens to clicks in the form button
-        formSubmit.addEventListener('click', () => {
-            // Gets handle to form and grid
+        formSubmit.addEventListener('click', (() => {
+            // Gets handles to form and grid
             const form = document.getElementById('dino-compare');
             const grid = document.getElementById('grid');
 
@@ -166,14 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
             human.weight = weight;
             human.diet = diet;
 
-            // Hides the form
-            form.className = 'hidden';
-
             // Randomizes the order of the dinos array
-            shuffleArrayElements(dinos);
-
-            // Adds the human to the middle index of the array
-            dinos.splice(4, 0, human);
+            randomlyOrderDinos(dinos);
 
             // Creates tiles and adds them to the grid
             dinos.forEach((dino) => {
@@ -181,6 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 html += dino.getHtml();
             });
             grid.innerHTML = html;
-        });
+
+            hideForm(form, grid);
+        })());
     })();
 });
