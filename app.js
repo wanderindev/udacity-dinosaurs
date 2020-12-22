@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formSubmit = document.getElementById('btn');
 
         /**
-         * @description Represents an animal
+         * @description Represents an animal.  This conscturctor is used for dinos and humans since both are animals
          * @constructor
          * @param {string} species - The species of the animal
          * @param {float} weight - The weight of the animal
