@@ -17,6 +17,8 @@
 
 >Udacity Dinosaurs Infographic Generator is the first project for the Intermediate JavaScript Nanodegree. This
 > project gives the student the opportunity to apply what was learned in the Object-Oriented JavaScript class.
+> 
+> The live site is available [here](https://fun-with-dinos.com)
 
 ## Project overview
 You can find the starter code for the project [here](https://github.com/udacity/Javascript).  The starter code includes:
@@ -35,10 +37,6 @@ information for the dinos come from the dino.json file.  The information for the
 Once the objects are created, an infographic consisting of 9 tiles should be generated and displayed in the browser.
 
 ## How to use
-
-### Preview directly on GitHub
-If you just want to preview the finish project and don't plan to edit the code you can do so
-[here](https://fun-with-dinos.com).
 
 ### Clone the repository
 If you want to use the code, you can clone the repository:
