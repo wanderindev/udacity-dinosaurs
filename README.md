@@ -15,8 +15,8 @@
   </a>
 </p>
 
->Udacity Dinosaurs Infographic Generator is the first project for the Intemediate JavaScript Nanodegree. This
-> project gives the student the opportunity to apply what was learned in the Object Oriented JavaScript class.
+>Udacity Dinosaurs Infographic Generator is the first project for the Intermediate JavaScript Nanodegree. This
+> project gives the student the opportunity to apply what was learned in the Object-Oriented JavaScript class.
 
 ## Project overview
 You can find the starter code for the project [here](https://github.com/udacity/Javascript).  The starter code includes:
