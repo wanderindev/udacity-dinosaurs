@@ -38,7 +38,7 @@ Once the objects are created, an infographic consisting of 9 tiles should be gen
 
 ### Preview directly on GitHub
 If you just want to preview the finish project and don't plan to edit the code you can do so
-[here](https://htmlpreview.github.io/?https://github.com/wanderindev/udacity-dinosaurs/blob/master/index.html).
+[here](https://fun-with-dinos.com).
 
 ### Clone the repository
 If you want to use the code, you can clone the repository:
